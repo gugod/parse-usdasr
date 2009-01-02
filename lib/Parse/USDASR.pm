@@ -10,9 +10,10 @@ class Parse::USDASR {
     def parse_line {
         my ($line) = @_;
         my @fields = map {
-            s/^\~//;
-            s/\~$//;
-            $_
+            $a = $_;
+            $a =~ s/^\~//;
+            $a =~ s/\~$//;
+            $a;
         } split /\^/, $line;
         return @fields;
     };
@@ -31,15 +32,25 @@ __END__
 
 =head1 NAME
 
-Parse::USDASR - Parse USDA Standard Reference Data Files.
+Parse::USDASR - Parse USDA Food nutrition standard reference data files.
 
 =head1 SYNOPSIS
 
   use Parse::USDASR;
 
+  my $parser = Parse::USDASR->new;
+  $parser->each_line(
+      \*STDIN,
+      sub {
+          my @fields = @_;
+      }
+  );
+
 =head1 DESCRIPTION
 
-Parse::USDASR is
+This module helps you parse the SR21 data files download-able from:
+
+L<http://www.ars.usda.gov/Services/docs.htm?docid=8964>
 
 =head1 AUTHOR
 
@@ -49,7 +60,7 @@ Kang-min Liu E<lt>gugod@gugod.orgE<gt>
 
 =head1 LICENSE
 
-Copyright (c) 2008, Kang-min Liu C<< <gugod@gugod.org> >>.
+Copyright (c) 2009, Kang-min Liu C<< <gugod@gugod.org> >>.
 
 This is free software, licensed under:
 
@@ -69,7 +80,7 @@ NECESSARY SERVICING, REPAIR, OR CORRECTION.
 
 IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
 WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
-REDISTRIBUTE THE SOFTWARE AS PERMITTED BY THE ABOVE LICENCE, BE
+REDISTRIBUTE THE SOFTWARE AS PERMITTED BY THE ABOVE LICENSE, BE
 LIABLE TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL,
 OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE
 THE SOFTWARE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING
