@@ -5,9 +5,9 @@ use Test::More tests => 2;
 use Parse::USDASR;
 
 my $parser = Parse::USDASR->new;
+$parser->io(\*DATA);
 
 $parser->each_line(
-    \*DATA,
     sub {
         local $, = "\t";
         my (@fields) = @_;

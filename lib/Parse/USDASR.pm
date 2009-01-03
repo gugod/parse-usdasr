@@ -4,8 +4,9 @@ use Rubyish;
 
 class Parse::USDASR {
     use 5.008;
-
     our $VERSION = '0.01';
+
+    attr_accessor "io";
 
     my %field_name = (
         FOOD_DES  => [qw(NDB_No FdGrp_Cd Long_Desc Shrt_Desc ComName ManufacName Survey Ref_desc Refuse SciName N_Factor Pro_Factor Fat_Factor CHO_Factor)],
@@ -25,7 +26,7 @@ class Parse::USDASR {
         my ($filename) = @_;
         $filename =~ s/.txt$//;
         $filename = uc($filename);
-        $field_name{$filename}
+        @{$field_name{$filename}};
     }
 
     def parse_line {
@@ -39,7 +40,8 @@ class Parse::USDASR {
     };
 
     def each_line {
-        my ($io, $sub) = @_;
+        my $io = $self->io;
+        my ($sub) = @_;
         while (my $line = <$io>) {
             chomp($line);
             $sub->( $self->parse_line($line) );
