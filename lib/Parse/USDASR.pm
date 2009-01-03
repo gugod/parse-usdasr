@@ -44,7 +44,8 @@ class Parse::USDASR {
         my ($sub) = @_;
         while (my $line = <$io>) {
             chomp($line);
-            $sub->( $self->parse_line($line) );
+            my $ret = $sub->( $self->parse_line($line) );
+            last if defined($ret) && !$ret;
         }
     }
 };
