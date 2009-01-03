@@ -62,10 +62,11 @@ Parse::USDASR - Parse USDA Food nutrition standard reference data files.
   use Parse::USDASR;
 
   my $parser = Parse::USDASR->new;
+  $parser->io(\*STDIN);
   $parser->each_line(
-      \*STDIN,
       sub {
           my @fields = @_;
+          # ... 
       }
   );
 
@@ -75,11 +76,60 @@ This module helps you parse the SR21 data files download-able from:
 
 L<http://www.ars.usda.gov/Services/docs.htm?docid=8964>
 
+=head1 METHODS
+
+=over
+
+=item new
+
+Constructor. Takes no args, returns a parser object. The next thing
+you should do is to call its C<io> method and assign an IO stream.
+
+=item io( \*FH | $handle )
+
+Attribute accessor. You need to assign an io stream object before
+start parsing. You can pass an reference to file handle:
+
+    open FH, "< FOOD_DES.txt";
+    $parser->io( \*FH );
+
+Or anything that can be placed inside of the diamond operator (C<< <> >>):
+
+    # An tied IO::All object
+    $parser->io( io("FOOD_DES.txt")->tie );
+
+=item each_line(sub { ... })
+
+For each line read from the io stream, call your call back with parsed
+fields in C<@_>. Consult the sr21_doc.pdf file for field definition.
+
+
+  $parser->each_line(
+      sub {
+          my @fields = @_;
+          # ... 
+      }
+  );
+
+=item field_names_for( $file_name )
+
+Returns the list of field names for the given file. The field definition
+is looked up by file name:
+
+    @field_names = Parse::USDASR->field_names_for('WEIGHT.txt');
+    # NDB_No, Seq, Amount, Msre_Desc, Gm_Wgt, Num_Data_Pts, Std_Dev
+
+Again, consult the sr21_doc.pdf file for field definition.
+
+=back
+
 =head1 AUTHOR
 
 Kang-min Liu E<lt>gugod@gugod.orgE<gt>
 
 =head1 SEE ALSO
+
+L<http://www.usda.gov/>, L<http://www.nal.usda.gov/fnic/foodcomp/Data/SR21/dnload/>
 
 =head1 LICENSE
 
