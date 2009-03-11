@@ -1,7 +1,8 @@
 Revision history for Perl extension Parse::USDASR
 
-0.02
+0.02 2009-03-11
 - Fix one very bad typo.
+- Ship with an example program that converts sr21 ascii files into a sqlite3 database
 
 0.01    Fri Jan  2 08:59:31 2009
         - original version
