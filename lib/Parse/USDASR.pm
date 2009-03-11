@@ -17,7 +17,7 @@ class Parse::USDASR {
         DERIV_CD  => [qw(Deriv_Cd Deriv_Desc)],
         WEIGHT    => [qw(NDB_No Seq Amount Msre_Desc Gm_Wgt Num_Data_Pts Std_Dev)],
         FOOTNOTE  => [qw(NDB_No Footnt_No Footnt_Typ Nutr_No Footnt_Txt)],
-        DATASRCLN => [qw(NDB_No Nutr_No DataSrc_ID)],
+        DATSRCLN  => [qw(NDB_No Nutr_No DataSrc_ID)],
         DATA_SRC  => [qw(DataSrc_ID Authors Title Year Journal Vol_City Issue_State Start_Page End_Page)],
         ABBREV    => [qw(NDB_No Shrt_Desc Water Energ_Kcal Protein Lipit_Tot Ash Carbonhydrt Fiber_TD Sugar_Tot Calcium Iron Magnesium Phosphorus Potassium Sodium Zinc Copper Manganese Selenium Vit_C Thiamin Riboflavin Niacin Panto_acid Vit_B6 Folate_Tot Folic_acid Food_Folate Folate_DFE Choline_total Vit_B12 Vit_A_IU Vit_A_RAE Retinol Alpha_Carot Beta_Carot Beta_Crypt Lycopene Lut_and_Zea Vit_E Vit_K FA_Sat FA_Mono FA_Poly Cholestrl GmWt_1 GmWt_Desc1 GmWt_2 GmWt_Desc2 Refuse_Pct)]
     );
