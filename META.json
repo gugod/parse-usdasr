@@ -1,0 +1,59 @@
+{
+   "abstract" : "Parse USDA Food nutrition standard reference data files.",
+   "author" : [
+      "Kang-min Liu E<lt>gugod@gugod.orgE<gt>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "App::ModuleBuildTiny version 0.026",
+   "license" : [
+      "mit"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : 2
+   },
+   "name" : "Parse-USDASR",
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "Module::Build::Tiny" : "0.034"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "App::ModuleBuildTiny" : "0.026"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Rubyish" : "0"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : "0"
+         }
+      }
+   },
+   "provides" : {
+      "Parse::USDASR" : {
+         "file" : "lib/Parse/USDASR.pm",
+         "version" : "0.03"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/gugod/parse-usdasr/issues"
+      },
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/gugod/parse-usdasr.git",
+         "web" : "https://github.com/gugod/parse-usdasr"
+      }
+   },
+   "version" : "0.03",
+   "x_serialization_backend" : "JSON::PP version 2.97001",
+   "x_spdx_expression" : "MIT",
+   "x_static_install" : "1"
+}

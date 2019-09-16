@@ -1,0 +1,14 @@
+{
+    "name": "Parse-USDASR",
+    "x_static_install": true,
+    "resources": {
+        "bugtracker": {
+            "web": "https://github.com/gugod/parse-usdasr/issues"
+        },
+        "repository": {
+            "web": "https://github.com/gugod/parse-usdasr",
+            "url": "https://github.com/gugod/parse-usdasr.git",
+            "type": "git"
+        }
+    }
+}

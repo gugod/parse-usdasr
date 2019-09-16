@@ -1,27 +1,107 @@
-This is Perl module Parse::USDASR.
+NAME
 
-INSTALLATION
+    Parse::USDASR - Parse USDA Food nutrition standard reference data
+    files.
 
-Parse::USDASR installation is straightforward. If your CPAN shell is set up,
-you should just be able to do
+SYNOPSIS
 
-    % cpan Parse::USDASR
+      use Parse::USDASR;
+    
+      my $parser = Parse::USDASR->new;
+      $parser->io(\*STDIN);
+      $parser->each_line(
+          sub {
+              my @fields = @_;
+              # ... 
+          }
+      );
 
-Download it, unpack it, then build it as per the usual:
+DESCRIPTION
 
-    % perl Makefile.PL
-    % make && make test
+    This module helps you parse the SR21 data files download-able from:
 
-Then install it:
+    http://www.ars.usda.gov/Services/docs.htm?docid=8964
 
-    % make install
+METHODS
 
-DOCUMENTATION
+    new
 
-Parse::USDASR documentation is available as in POD. So you can do:
+      Constructor. Takes no args, returns a parser object. The next thing
+      you should do is to call its io method and assign an IO stream.
 
-    % perldoc Parse::USDASR
+    io( \*FH | $handle )
 
-to read the documentation online with your favorite pager.
+      Attribute accessor. You need to assign an io stream object before
+      start parsing. You can pass an reference to file handle:
 
-Kang-min Liu
+          open FH, "< FOOD_DES.txt";
+          $parser->io( \*FH );
+
+      Or anything that can be placed inside of the diamond operator (<>):
+
+          # An tied IO::All object
+          $parser->io( io("FOOD_DES.txt")->tie );
+
+    each_line(sub { ... })
+
+      For each line read from the io stream, call your call back with
+      parsed fields in @_. Consult the sr21_doc.pdf file for field
+      definition.
+
+        $parser->each_line(
+            sub {
+                my @fields = @_;
+                # ... 
+            }
+        );
+
+    field_names_for( $file_name )
+
+      Returns the list of field names for the given file. The field
+      definition is looked up by file name:
+
+          @field_names = Parse::USDASR->field_names_for('WEIGHT.txt');
+          # NDB_No, Seq, Amount, Msre_Desc, Gm_Wgt, Num_Data_Pts, Std_Dev
+
+      Again, consult the sr21_doc.pdf file for field definition.
+
+AUTHOR
+
+    Kang-min Liu <gugod@gugod.org>
+
+SEE ALSO
+
+    http://www.usda.gov/,
+    http://www.nal.usda.gov/fnic/foodcomp/Data/SR21/dnload/
+
+LICENSE
+
+    Copyright (c) 2009, Kang-min Liu <gugod@gugod.org>.
+
+    This is free software, licensed under:
+
+        The MIT (X11) License
+
+DISCLAIMER OF WARRANTY
+
+    BECAUSE THIS SOFTWARE IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+    FOR THE SOFTWARE, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT
+    WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER
+    PARTIES PROVIDE THE SOFTWARE "AS IS" WITHOUT WARRANTY OF ANY KIND,
+    EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE
+    ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH
+    YOU. SHOULD THE SOFTWARE PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL
+    NECESSARY SERVICING, REPAIR, OR CORRECTION.
+
+    IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+    WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
+    REDISTRIBUTE THE SOFTWARE AS PERMITTED BY THE ABOVE LICENSE, BE LIABLE
+    TO YOU FOR DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL, OR
+    CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE
+    SOFTWARE (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING
+    RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A
+    FAILURE OF THE SOFTWARE TO OPERATE WITH ANY OTHER SOFTWARE), EVEN IF
+    SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
+    DAMAGES.
+
